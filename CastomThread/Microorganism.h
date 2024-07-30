@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QThread>
+#include <QDebug>
 
 class Microorganism : public QThread
 {

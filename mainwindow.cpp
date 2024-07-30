@@ -66,7 +66,9 @@ void MainWindow::applyAntibiotics()
     QList<QString> org = mMicroorganisms.keys();
     for (int i = 0; i < rand; i++)
     {
-        deathMicroorganism(org[i]);
+        mMicroorganisms[org[i]].second->deleteLater();
+        delete mMicroorganisms[org[i]].first;
+        mMicroorganisms.remove(org[i]);
     }
     ui->CounterValue->setText(QString::number(mMicroorganisms.size()));
 }
@@ -83,8 +85,9 @@ void MainWindow::deathMicroorganism(QString name)
 {
     if (mMicroorganisms.count(name))
     {
-        mMicroorganisms[name].second->death();
-        mMicroorganisms[name].first->~IMicroorganisms();
+        mMicroorganisms[name].second->deleteLater();
+        delete mMicroorganisms[name].first;
+
         mMicroorganisms.remove(name);
 
         ui->CounterValue->setText(QString::number(mMicroorganisms.size()));
