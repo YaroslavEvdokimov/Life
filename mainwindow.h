@@ -10,7 +10,7 @@
 #include <QDebug>
 #include <tuple>
 
-#include "GUI/IMicroorganisms.h"
+#include "Widget/IMicroorganisms.h"
 #include "CastomThread/Microorganism.h"
 #include "utils/utils.h"
 
@@ -27,16 +27,20 @@ public:
     ~MainWindow();
 
 private slots:
-    void updateMicroorganism(QString name, int l_time, int b_time);
+    void updateMicroorganism(QString& name, int& l_time, int& b_time);
     void deathMicroorganism(QString name);
     void giveOffspring(QString name);
     void applyAntibiotics();
 
 private:
-    void addMicroorganisms(uint32_t number);
+    void createMicroorganisms(uint32_t number);
+
+    Microorganism* addMicroorganism(const uint32_t& live_time, const uint32_t& breeding_time);
     void play();
 
+private:
     QTimer *mTimer;
+    QMutex mMutexDeath;
     QVBoxLayout *mItemLayout;
     QScrollArea *mScrollArea;
 

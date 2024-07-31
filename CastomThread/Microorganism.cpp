@@ -9,14 +9,15 @@ Microorganism::Microorganism(QObject *parent
     , mLifeTime(l_time)
     , mBreedingTime(b_time)
     , mSaveBreedingTime(b_time)
+    , mTimer(new QTimer(this))
     , mIsAlive(true)
 {
-
+    connect(mTimer, &QTimer::timeout, this, &Microorganism::updateStat);
+    mTimer->start(1000);
 }
 
 Microorganism::~Microorganism()
 {
-    requestInterruption();
     wait();
     qDebug() << "Death:"  << mName;
 }
@@ -32,26 +33,26 @@ void Microorganism::updateBreedingTime()
     mBreedingTime = mSaveBreedingTime;
 }
 
+void Microorganism::updateStat()
+{
+    mLifeTime--;
+    mBreedingTime--;
+
+    if (mLifeTime == 0)
+    {
+        death();
+        return;
+    }
+
+    if (mBreedingTime == 0)
+    {
+        emit giveOffspring(mName);
+        updateBreedingTime();
+    }
+
+    emit updateMicroorganism(mName, mLifeTime, mBreedingTime);
+}
+
 void Microorganism::run()
 {
-    while(!isInterruptionRequested() && mIsAlive)
-    {
-        QThread::sleep(1);
-        mLifeTime--;
-        mBreedingTime--;
-
-        if (mLifeTime == 0)
-        {
-            death();
-            return;
-        }
-
-        if (mBreedingTime == 0)
-        {
-            emit giveOffspring(mName);
-            updateBreedingTime();
-        }
-
-        emit updateMicroorganism(mName, mLifeTime, mBreedingTime);
-    }
 }

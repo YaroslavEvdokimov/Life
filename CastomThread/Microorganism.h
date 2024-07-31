@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QThread>
+#include <QTimer>
 #include <QDebug>
 
 class Microorganism : public QThread
@@ -16,19 +17,24 @@ public:
     void death();
 
 signals:
-    void updateMicroorganism(QString name, int l_time, int b_time);
+    void updateMicroorganism(QString& name, int& l_time, int& b_time);
     void deathMicroorganism(QString name);
     void giveOffspring(QString name);
+
+private slots:
+    void updateStat();
 
 private:
     void updateBreedingTime();
 
     bool mIsAlive;
 
+    QTimer* mTimer;
+
     QString mName;
-    uint32_t mLifeTime = 0;
-    uint32_t mBreedingTime = 0;
-    uint32_t mSaveBreedingTime = 0;
+    int mLifeTime = 0;
+    int mBreedingTime = 0;
+    int mSaveBreedingTime = 0;
 };
 
 #endif // MICROORGANISM_H

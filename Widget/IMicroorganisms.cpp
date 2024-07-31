@@ -1,5 +1,5 @@
 #include "IMicroorganisms.h"
-#include "./ui_ItemMicroorganism.h"
+#include "./../UI/ui_ItemMicroorganism.h"
 
 IMicroorganisms::IMicroorganisms(QWidget *parent
                                  , const QString& name

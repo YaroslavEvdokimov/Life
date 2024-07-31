@@ -38,8 +38,8 @@ else()
     else()
         add_executable(Microorganisms
             ${PROJECT_SOURCES}
-            GUI/IMicroorganisms.h GUI/IMicroorganisms.cpp
-            GUI/ItemMicroorganism.ui
+            Widget/IMicroorganisms.h Widget/IMicroorganisms.cpp
+            UI/ItemMicroorganism.ui
             CastomThread/Microorganism.h CastomThread/Microorganism.cpp
             utils/utils.h
         )
@@ -47,6 +47,8 @@ else()
 endif()
 
 target_link_libraries(Microorganisms PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+
+#file(COPY images DESTINATION ${PROJECT_BINARY_DIR})
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
