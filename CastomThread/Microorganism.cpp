@@ -53,6 +53,4 @@ void Microorganism::updateStat()
     emit updateMicroorganism(mName, mLifeTime, mBreedingTime);
 }
 
-void Microorganism::run()
-{
-}
+void Microorganism::run(){}

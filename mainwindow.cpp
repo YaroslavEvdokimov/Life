@@ -108,5 +108,4 @@ void MainWindow::giveOffspring(QString name)
 
     addMicroorganism(live_time, breeding_time)->start();
     ui->CounterValue->setText(QString::number(mMicroorganisms.size()));
-
 }

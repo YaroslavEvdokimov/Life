@@ -6,6 +6,9 @@
 #include <QTimer>
 #include <QDebug>
 
+///
+/// \brief The Microorganism class
+/// Класс отвеает за логику "жизни" организма.
 class Microorganism : public QThread
 {
     Q_OBJECT
@@ -14,6 +17,8 @@ public:
     ~Microorganism();
 
     void run() override;
+
+    /// Метод остановки потока
     void death();
 
 signals:
@@ -22,9 +27,11 @@ signals:
     void giveOffspring(QString name);
 
 private slots:
+    /// Основной метод расчета времени до смерти и потомства
     void updateStat();
 
 private:
+    /// Метод обновления времени до потомства
     void updateBreedingTime();
 
     bool mIsAlive;
